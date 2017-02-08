@@ -39,12 +39,6 @@ create_time = [os.path.getctime(file) for file in files_with_ext]
 
 # Loop for searching files with 10 sec difference
 length = len(create_time)
-if length > 0:
-    for i in range(length):
-        if 0 <= (os.path.getctime(last) - create_time[i]) <= 10:
-            print(os.path.basename(files_with_ext[i]))
-else:
-    print('Files with the extension are absent.')
-
-
-
+for i in range(length):
+    if os.path.getctime(last) - create_time[i] <= 10:
+        print(os.path.basename(files_with_ext[i]))
