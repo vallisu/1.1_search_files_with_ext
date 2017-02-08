@@ -13,7 +13,7 @@ print('Search a latest created file(s) with a given extension.\n')
 
 # Enter path
 path = input('Enter path with files: ')
-while os.path.exists(path) == False:
+while os.path.exists(path) is False:
     path = input('The entered path is incorrect. Try again: ')
 
 # Create a list of files in the entered folder
@@ -27,6 +27,9 @@ ext = input('Enter an file extension: ')
 
 # Create a list of files with the entered extension
 files_with_ext = list(filter(lambda x: x.endswith(ext), files))
+if len(files_with_ext) == 0:
+    input('Files with the entered extension are absent. Press any key to exit. ')
+    exit(0)
 
 # Find a latest created file
 last = max(files_with_ext, key=os.path.getctime)
@@ -38,7 +41,7 @@ create_time = [os.path.getctime(file) for file in files_with_ext]
 length = len(create_time)
 if length > 0:
     for i in range(length):
-        if ((os.path.getctime(last) - create_time[i]) >= 0) and ((os.path.getctime(last) - create_time[i]) <= 10.0):
+        if 0 <= (os.path.getctime(last) - create_time[i]) <= 10:
             print(os.path.basename(files_with_ext[i]))
 else:
     print('Files with the extension are absent.')
